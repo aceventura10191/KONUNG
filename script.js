@@ -783,7 +783,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const autoScrollBtn = document.getElementById('auto-scroll-btn');
     let isAutoScrolling = false;
     let autoScrollReq;
-    const autoScrollSpeed = 1.2; // Smooth cinematic pace
+    const autoScrollSpeed = 2.2; // Smooth cinematic pace, slightly faster
 
     if (autoScrollBtn) {
         autoScrollBtn.addEventListener('click', (e) => {
