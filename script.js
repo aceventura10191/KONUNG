@@ -779,6 +779,74 @@ document.addEventListener('DOMContentLoaded', () => {
         animateSnow();
     }
 
+    // ═══════════════════════════════════════
+    //  RUNES MATRIX BACKGROUND
+    // ═══════════════════════════════════════
+    const runesCanvas = document.getElementById('runes-canvas');
+    if (runesCanvas) {
+        const ctxR = runesCanvas.getContext('2d');
+        
+        const setCanvasSize = () => {
+            runesCanvas.width = window.innerWidth;
+            runesCanvas.height = window.innerHeight;
+        };
+        setCanvasSize();
+        window.addEventListener('resize', setCanvasSize);
+
+        const nordicRunes = 'ᚠᚢᚦᚬᚱᚴᚼᚽᚾᚿᛁᛅᛆᛋᛌᛏᛐᛒᛘᛚᛦ'.split('');
+        const fontSize = 24;
+        
+        // Re-initialize columns on resize
+        let columns = Math.floor(window.innerWidth / fontSize);
+        let drops = [];
+        for (let x = 0; x < columns; x++) {
+            drops[x] = Math.random() * (window.innerHeight / fontSize);
+        }
+
+        window.addEventListener('resize', () => {
+            columns = Math.floor(window.innerWidth / fontSize);
+            drops = [];
+            for (let x = 0; x < columns; x++) {
+                drops[x] = Math.random() * (window.innerHeight / fontSize);
+            }
+        });
+
+        function drawRunes() {
+            ctxR.fillStyle = 'rgba(3, 5, 8, 0.1)';
+            ctxR.fillRect(0, 0, runesCanvas.width, runesCanvas.height);
+
+            ctxR.fillStyle = '#00BFFF';
+            ctxR.font = fontSize + 'px "Rajdhani", sans-serif';
+            ctxR.textAlign = 'center';
+
+            for (let i = 0; i < drops.length; i++) {
+                const text = nordicRunes[Math.floor(Math.random() * nordicRunes.length)];
+                
+                ctxR.shadowBlur = 15;
+                ctxR.shadowColor = '#00E5FF';
+                
+                ctxR.fillText(text, i * fontSize, drops[i] * fontSize);
+                
+                ctxR.shadowBlur = 0;
+
+                if (drops[i] * fontSize > runesCanvas.height && Math.random() > 0.95) {
+                    drops[i] = 0;
+                }
+                drops[i]++;
+            }
+        }
+        
+        let lastRuneDraw = 0;
+        function animateRunes(timestamp) {
+            if (timestamp - lastRuneDraw > 60) {
+                drawRunes();
+                lastRuneDraw = timestamp;
+            }
+            requestAnimationFrame(animateRunes);
+        }
+        requestAnimationFrame(animateRunes);
+    }
+
     // ── AUTO-SCROLL FEATURE ──
     const autoScrollBtn = document.getElementById('auto-scroll-btn');
     let isAutoScrolling = false;
