@@ -779,4 +779,52 @@ document.addEventListener('DOMContentLoaded', () => {
         animateSnow();
     }
 
+    // ── AUTO-SCROLL FEATURE ──
+    const autoScrollBtn = document.getElementById('auto-scroll-btn');
+    let isAutoScrolling = false;
+    let autoScrollReq;
+    const autoScrollSpeed = 1.2; // Smooth cinematic pace
+
+    if (autoScrollBtn) {
+        autoScrollBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            isAutoScrolling = !isAutoScrolling;
+            if (isAutoScrolling) {
+                autoScrollBtn.classList.add('active');
+                autoScrollBtn.innerHTML = '<span class="icon">⏸</span> Pause';
+                autoScrollLoop();
+            } else {
+                autoScrollBtn.classList.remove('active');
+                autoScrollBtn.innerHTML = '<span class="icon">▶</span> Auto-Play';
+                cancelAnimationFrame(autoScrollReq);
+            }
+        });
+
+        // Interrupt if user manually scrolls/interacts
+        const stopAutoScroll = () => {
+            if (isAutoScrolling) {
+                isAutoScrolling = false;
+                autoScrollBtn.classList.remove('active');
+                autoScrollBtn.innerHTML = '<span class="icon">▶</span> Auto-Play';
+                cancelAnimationFrame(autoScrollReq);
+            }
+        };
+
+        window.addEventListener('wheel', stopAutoScroll, { passive: true });
+        window.addEventListener('touchstart', stopAutoScroll, { passive: true });
+        
+        function autoScrollLoop() {
+            if (!isAutoScrolling) return;
+            window.scrollBy(0, autoScrollSpeed);
+            
+            // Check if reached bottom
+            if ((window.innerHeight + Math.ceil(window.scrollY)) >= document.body.offsetHeight) {
+                stopAutoScroll();
+                return;
+            }
+            
+            autoScrollReq = requestAnimationFrame(autoScrollLoop);
+        }
+    }
+
 });

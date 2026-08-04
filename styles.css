@@ -247,6 +247,43 @@ body {
     width: 100%;
 }
 
+.auto-scroll-btn {
+    background: rgba(0, 191, 255, 0.05);
+    border: 1px solid rgba(0, 191, 255, 0.2);
+    color: var(--text-primary);
+    font-family: var(--font-ui);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 6px 14px;
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+}
+.auto-scroll-btn:hover {
+    background: rgba(0, 191, 255, 0.15);
+    border-color: rgba(0, 191, 255, 0.4);
+    box-shadow: 0 0 10px rgba(0, 191, 255, 0.15);
+    transform: translateY(-1px);
+}
+.auto-scroll-btn.active {
+    background: rgba(0, 191, 255, 0.25);
+    border-color: var(--ice-bright);
+    box-shadow: 0 0 15px rgba(0, 191, 255, 0.3);
+    color: #fff;
+}
+.auto-scroll-btn .icon {
+    font-size: 0.7rem;
+    transition: transform 0.3s ease;
+}
+.auto-scroll-btn.active .icon {
+    color: var(--ice-bright);
+}
+
 /* ── SCROLL INDICATOR ── */
 #scroll-indicator {
     position: fixed;
@@ -1314,6 +1351,11 @@ body {
         padding: 14px 0;
         font-size: 0.9rem;
         border-bottom: 1px solid rgba(255,255,255,0.04);
+    }
+    .auto-scroll-btn {
+        margin-top: 24px;
+        justify-content: center;
+        padding: 12px 14px;
     }
 
     /* ── HERO ── */
