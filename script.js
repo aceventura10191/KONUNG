@@ -812,7 +812,8 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         function drawRunes() {
-            ctxR.fillStyle = 'rgba(3, 5, 8, 0.1)';
+            // Lower opacity means longer trails that stretch much further down
+            ctxR.fillStyle = 'rgba(3, 5, 8, 0.04)';
             ctxR.fillRect(0, 0, runesCanvas.width, runesCanvas.height);
 
             ctxR.fillStyle = '#00BFFF';
@@ -829,8 +830,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 
                 ctxR.shadowBlur = 0;
 
-                // Let the runes fall completely off the bottom of the screen before resetting
-                if (drops[i] * fontSize > runesCanvas.height + 200 && Math.random() > 0.9) {
+                // Let the runes fall very far below the screen before resetting (prevents any visible cutoffs)
+                if (drops[i] * fontSize > runesCanvas.height + 800 && Math.random() > 0.95) {
                     drops[i] = 0;
                 }
                 drops[i]++;
