@@ -791,11 +791,11 @@ document.addEventListener('DOMContentLoaded', () => {
             isAutoScrolling = !isAutoScrolling;
             if (isAutoScrolling) {
                 autoScrollBtn.classList.add('active');
-                autoScrollBtn.innerHTML = '<span class="icon">⏸</span> Pause';
+                autoScrollBtn.innerText = 'PAUSE SCROLL';
                 autoScrollLoop();
             } else {
                 autoScrollBtn.classList.remove('active');
-                autoScrollBtn.innerHTML = '<span class="icon">▶</span> Auto-Play';
+                autoScrollBtn.innerText = 'AUTO SCROLL';
                 cancelAnimationFrame(autoScrollReq);
             }
         });
@@ -805,7 +805,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (isAutoScrolling) {
                 isAutoScrolling = false;
                 autoScrollBtn.classList.remove('active');
-                autoScrollBtn.innerHTML = '<span class="icon">▶</span> Auto-Play';
+                autoScrollBtn.innerText = 'AUTO SCROLL';
                 cancelAnimationFrame(autoScrollReq);
             }
         };
