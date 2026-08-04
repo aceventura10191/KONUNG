@@ -1265,8 +1265,9 @@ body {
     font-size: 1.5rem;
     color: var(--ice-primary);
     text-shadow: 0 0 20px var(--ice-primary);
-    margin-bottom: 16px;
-    opacity: 0.6;
+    animation: runeGlow 3s ease-in-out infinite;
+    margin-bottom: 20px;
+    opacity: 0.8;
 }
 .footer-content p {
     font-family: var(--font-ui);
