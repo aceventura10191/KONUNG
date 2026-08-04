@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Celestial Konung — Shadow Fight 3 | The Frozen Monarch</title>
+    <meta name="description" content="Explore the Celestial Konung legendary set from Shadow Fight 3. Discover all 6 upgrade levels, ice abilities, and the power of the Frozen Monarch.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800;900&family=Rajdhani:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- LOADING SCREEN -->
+    <div id="loader">
+        <div class="loader-inner">
+            <div class="loader-rune">&#x2726;</div>
+            <div class="loader-text">CELESTIAL KONUNG</div>
+            <div class="loader-bar"><div class="loader-bar-fill"></div></div>
+        </div>
+    </div>
+
+    <!-- PARTICLE CANVAS (always on top) -->
+    <canvas id="particles-canvas"></canvas>
+
+    <!-- SNOW CANVAS (background layer) -->
+    <canvas id="snow-canvas"></canvas>
+
+    <!-- NAVIGATION -->
+    <nav id="main-nav">
+        <div class="nav-logo">
+            <span class="nav-rune">&#x2726;</span>
+            <span class="nav-title">CELESTIAL KONUNG</span>
+        </div>
+        <div class="nav-progress">
+            <div class="nav-progress-bar" id="scroll-progress"></div>
+        </div>
+        <div class="nav-links">
+            <a href="#hero" class="nav-link active" data-section="0">Origin</a>
+            <a href="#overview" class="nav-link" data-section="1">Overview</a>
+            <a href="#levels" class="nav-link" data-section="2">Upgrades</a>
+            <a href="#perks" class="nav-link" data-section="3">Perks</a>
+            <a href="#ultimate" class="nav-link" data-section="4">Ascension</a>
+        </div>
+        <button class="nav-hamburger" id="nav-hamburger" aria-label="Toggle menu">
+            <span></span><span></span><span></span>
+        </button>
+    </nav>
+
+    <!-- SCROLL INDICATOR -->
+    <div id="scroll-indicator">
+        <div class="scroll-mouse">
+            <div class="scroll-wheel"></div>
+        </div>
+        <span>Scroll to Begin</span>
+    </div>
+
+    <!-- ═══════════════════════════════════════ -->
+    <!-- SECTION 1: HERO - DRAMATIC ENTRANCE     -->
+    <!-- ═══════════════════════════════════════ -->
+    <section id="hero" class="section pinned-section">
+        <div class="hero-bg-layer"></div>
+        <div class="hero-image-container">
+            <img src="images/konung_user1.jpg" alt="Celestial Konung" class="hero-image" id="hero-img">
+            <div class="hero-image-glow"></div>
+        </div>
+        <div class="hero-content">
+            <div class="hero-subtitle" id="hero-subtitle">SHADOW FIGHT 3 — LEGENDARY SET</div>
+            <h1 class="hero-title" id="hero-title">
+                <span class="title-line">CELESTIAL</span>
+                <span class="title-line title-accent">KONUNG</span>
+            </h1>
+            <div class="hero-tagline" id="hero-tagline">The Frozen Monarch of Endless Winter</div>
+            <div class="hero-divider" id="hero-divider"></div>
+        </div>
+        <div class="hero-frost-vignette"></div>
+    </section>
+
+    <!-- ═══════════════════════════════════════ -->
+    <!-- SECTION 2: SET OVERVIEW                  -->
+    <!-- ═══════════════════════════════════════ -->
+    <section id="overview" class="section pinned-section">
+        <div class="overview-bg"></div>
+        <div class="overview-wrapper">
+            <div class="overview-image-panel">
+                <img src="images/konung_user1.jpg" alt="Celestial Konung Portrait" class="overview-img" id="overview-img">
+                <div class="image-frost-frame"></div>
+            </div>
+            <div class="overview-text-panel">
+                <div class="section-label">THE LEGEND</div>
+                <h2 class="section-title">The Frozen Monarch</h2>
+                <div class="overview-description">
+                    <p>The <strong>Celestial Konung</strong> is one of the most devastating legendary sets in Shadow Fight 3. Forged in the heart of an eternal blizzard, this armor channels the raw power of arctic frost through ancient Nordic runes.</p>
+                    <p>The wearer commands <strong>ice energy</strong> — summoning blizzards of razor-sharp ice swords from the sky, detonating frost runes embedded in enemies, and calling forth a <strong>spectral Snow Leopard</strong> to deliver the Konung's Verdict.</p>
+                    <p>With 6 upgrade tiers, each level transforms the warrior into an increasingly unstoppable force of frozen destruction.</p>
+                </div>
+                <div class="overview-stats">
+                    <div class="stat-item">
+                        <div class="stat-value">6</div>
+                        <div class="stat-label">Upgrade Levels</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">4</div>
+                        <div class="stat-label">Ice Moves</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">∞</div>
+                        <div class="stat-label">Frost Runes</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════ -->
+    <!-- SECTION 3: UPGRADE LEVELS (Scrolling)    -->
+    <!-- ═══════════════════════════════════════ -->
+    <section id="levels" class="section levels-section">
+        <div class="levels-bg"></div>
+
+        <!-- Level 1: Skilled Raider -->
+        <div class="level-panel" data-level="1" id="level-1">
+            <div class="level-image-side">
+                <img src="images/konung_standing.jpg" alt="Skilled Raider" class="level-img">
+                <div class="level-img-overlay"></div>
+            </div>
+            <div class="level-info-side">
+                <div class="level-badge">
+                    <span class="level-number">1</span>
+                </div>
+                <h3 class="level-name">SKILLED RAIDER</h3>
+                <div class="level-type-tag">Level 1</div>
+                <div class="level-details">
+                    <div class="ability-card">
+                        <div class="ability-body">
+                            <div class="stat-row">
+                                <span class="stat-label-inline">Weapon attack damage</span>
+                                <span class="stat-boost">+10%</span>
+                            </div>
+                            <div class="stat-row">
+                                <span class="stat-label-inline">Defense</span>
+                                <span class="stat-boost">+15%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Level 2: Celestial Ice -->
+        <div class="level-panel" data-level="2" id="level-2">
+            <div class="level-image-side">
+                <img src="images/konung_user2.jpg" alt="Celestial Ice" class="level-img">
+                <div class="level-img-overlay"></div>
+            </div>
+            <div class="level-info-side">
+                <div class="level-badge">
+                    <span class="level-number">2</span>
+                </div>
+                <h3 class="level-name">CELESTIAL ICE</h3>
+                <div class="level-type-tag">Level 2 — Core Mechanic</div>
+                <div class="level-details">
+                    <div class="ability-card">
+                        <div class="ability-header">
+                            <span class="ability-type passive">PASSIVE</span>
+                            <span class="ability-name">Polar Arsenal</span>
+                        </div>
+                        <div class="ability-body">
+                            <p>You use <strong>ice energy</strong>. You gain energy when the <strong>ice swords</strong> summoned by your abilities hit an opponent. You do not gain energy from other sources. You spend ice energy to use the <strong>Konung's Verdict</strong> ability.</p>
+                            <p>You have <strong>4 ice moves</strong> available. Ice moves do not consume energy.</p>
+                        </div>
+                    </div>
+                    <div class="ability-card">
+                        <div class="ability-header">
+                            <span class="ability-type active">HELMET MOVE</span>
+                            <span class="ability-name">Polar Blizzard</span>
+                        </div>
+                        <div class="ability-body">
+                            <p>You create a <strong>Blizzard</strong> for 10 sec, during which ice swords fall from the sky. When an ice sword hits an opponent, it deals <strong class="val">5%</strong> weapon damage and applies a <strong>Frost Rune</strong> to them for <strong class="val">10 sec</strong>. When it hits the ground, an <strong>ice sword</strong> explodes, pushing back the opponent and dealing <strong class="val">3%</strong> weapon damage.</p>
+                        </div>
+                    </div>
+                    <div class="ability-card">
+                        <div class="ability-header">
+                            <span class="ability-type active">ARMOR MOVE</span>
+                            <span class="ability-name">Leopard Leap</span>
+                        </div>
+                        <div class="ability-body">
+                            <p>You summon a leopard that slams the ground with its paws, dealing <strong class="val">10%</strong> shadow damage and knocking down the opponent.</p>
+                        </div>
+                    </div>
+                    <div class="ability-card">
+                        <div class="ability-header">
+                            <span class="ability-type active">WEAPON MOVE</span>
+                            <span class="ability-name">Sharpest Ice</span>
+                        </div>
+                        <div class="ability-body">
+                            <p>For <strong class="val">10 sec</strong>, your weapon becomes icy: your weapon attack damage is increased by <strong class="val">40%</strong>, your attacks have a <strong class="val">35%</strong> chance to break through the enemy's block, and a <strong class="val">20%</strong> chance to freeze them.</p>
+                        </div>
+                    </div>
+                    <div class="ability-card">
+                        <div class="ability-header">
+                            <span class="ability-type active">RANGED WEAPON MOVE</span>
+                            <span class="ability-name">Konung's Challenge</span>
+                        </div>
+                        <div class="ability-body">
+                            <p>You plunge two giant swords into the ground, preventing the enemy from moving far from you.</p>
+                        </div>
+                    </div>
+                    <div class="ability-card">
+                        <div class="ability-header">
+                            <span class="ability-type passive">PASSIVE</span>
+                            <span class="ability-name">Ice Swords</span>
+                        </div>
+                        <div class="ability-body">
+                            <p>When you successfully hit an enemy with a weapon, you have a <strong class="val">50%</strong> chance to summon an ice sword that will attack the opponent after <strong class="val">0.5 sec</strong>, dealing <strong class="val">5%</strong> weapon damage and applying a <strong>Frost Rune</strong> to them for <strong class="val">10 sec</strong>. A new Rune refreshes the duration of those already applied. Each active Rune reduces the opponent's damage by <strong class="val">3%</strong>. Successfully hitting an opponent with an ice sword restores you <strong class="val">15%</strong> ice energy.</p>
+                            <p>If the opponent has the maximum number of Runes active on them, the ice swords do not apply new ones to the opponent, but refresh the duration of the currently active ones.</p>
+                            <p class="ability-note">Maximum number of Frost Runes active at the same time: <strong>8</strong></p>
+                        </div>
+                    </div>
+                    <div class="ability-card">
+                        <div class="ability-header">
+                            <span class="ability-type ultimate">ACTIVE — REPLACES RANGED WEAPON</span>
+                            <span class="ability-name">Rune Magic</span>
+                        </div>
+                        <div class="ability-body">
+                            <p>If your opponent has no <strong>Frost Runes</strong> applied, you throw an ice sword at them, dealing <strong class="val">5%</strong> weapon damage on hit and applying a <strong>Frost Rune</strong> to them.</p>
+                            <p>If your opponent has at least one <strong>Frost Rune</strong> applied, you detonate them, dealing <strong class="val">5%</strong> shadow damage to the opponent for each <strong>Rune</strong> detonated and <strong>knocking</strong> them <strong>down</strong>.</p>
+                            <p class="ability-note">Cooldown: <strong>10 sec</strong></p>
+                        </div>
+                    </div>
+                    <div class="ability-card">
+                        <div class="ability-header">
+                            <span class="ability-type ultimate">ACTIVE — AVAILABLE AT 100% ICE ENERGY</span>
+                            <span class="ability-name">Konung's Verdict</span>
+                        </div>
+                        <div class="ability-body">
+                            <p>You spend <strong class="val">25%</strong> of energy to summon a <strong>Snow Leopard</strong> that jumps on the opponent. On hit, the <strong>leopard</strong> absorbs all your energy and slams the opponent to the ground, dealing <strong class="val">35%</strong> shadow damage, then throws the opponent onto an ice spike, dealing an additional <strong class="val">30%</strong> shadow damage and automatically activating <strong>Rune Magic</strong>.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Level 3: Covered by Blizzard -->
+        <div class="level-panel" data-level="3" id="level-3">
+            <div class="level-image-side">
+                <img src="images/konung_blizzard.jpg" alt="Covered by Blizzard" class="level-img">
+                <div class="level-img-overlay"></div>
+            </div>
+            <div class="level-info-side">
+                <div class="level-badge">
+                    <span class="level-number">3</span>
+                </div>
+                <h3 class="level-name">COVERED BY BLIZZARD</h3>
+                <div class="level-type-tag">Level 3</div>
+                <div class="level-details">
+                    <div class="ability-card">
+                        <div class="ability-body">
+                            <div class="stat-row">
+                                <span class="stat-label-inline">Chance to summon an ice sword while inside a <strong>Blizzard</strong></span>
+                                <span class="stat-boost">+10%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Level 4: Fearless Star Sailor -->
+        <div class="level-panel" data-level="4" id="level-4">
+            <div class="level-image-side">
+                <img src="images/konung_leopard.jpg" alt="Fearless Star Sailor" class="level-img">
+                <div class="level-img-overlay"></div>
+            </div>
+            <div class="level-info-side">
+                <div class="level-badge">
+                    <span class="level-number">4</span>
+                </div>
+                <h3 class="level-name">FEARLESS STAR SAILOR</h3>
+                <div class="level-type-tag">Level 4 — Empowerment</div>
+                <div class="level-details">
+                    <div class="ability-card">
+                        <div class="ability-header">
+                            <span class="ability-type passive">PASSIVE</span>
+                            <span class="ability-name">Ice Mead</span>
+                        </div>
+                        <div class="ability-body">
+                            <p>The duration of your ice moves Sharpest Ice, Polar Blizzard, and Konung's Challenge is increased by <strong class="val">5 sec</strong>.</p>
+                            <p>All your ice moves are enhanced:</p>
+                            <ul class="enhanced-list">
+                                <li><strong>Polar Blizzard</strong> - you summon <span class="val">100%</span> more ice swords.</li>
+                                <li><strong>Leopard Leap</strong> - the move recharges <span class="val">2 sec</span> faster.</li>
+                                <li><strong>Sharpest Ice</strong> - increases the damage of not only your weapon, but also the <strong>ice swords</strong> summoned by your attacks.</li>
+                                <li><strong>Konung's Challenge</strong> - giant swords are now shrouded in <strong>Slicing Blizzard</strong>. An opponent inside a <strong>Blizzard</strong> takes <span class="val">30%</span> more weapon damage and <span class="val">2.5%</span> true damage every <span class="val">1 sec</span>.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="ability-card">
+                        <div class="ability-header">
+                            <span class="ability-type passive">PASSIVE</span>
+                            <span class="ability-name">Playing with Runes</span>
+                        </div>
+                        <div class="ability-body">
+                            <p>Every <strong class="val">4</strong> Frost Rune applied automatically activates Leopard Leap.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Level 5: Long Runes -->
+        <div class="level-panel" data-level="5" id="level-5">
+            <div class="level-image-side">
+                <img src="images/konung_battle.jpg" alt="Long Runes" class="level-img">
+                <div class="level-img-overlay"></div>
+            </div>
+            <div class="level-info-side">
+                <div class="level-badge">
+                    <span class="level-number">5</span>
+                </div>
+                <h3 class="level-name">LONG RUNES</h3>
+                <div class="level-type-tag">Level 5</div>
+                <div class="level-details">
+                    <div class="ability-card">
+                        <div class="ability-body">
+                            <div class="stat-row">
+                                <span class="stat-label-inline">Frost Rune duration</span>
+                                <span class="stat-boost">+2 sec</span>
+                            </div>
+                            <div class="stat-row">
+                                <span class="stat-label-inline">Number of ice swords summoned by <strong>Rune Magic</strong></span>
+                                <span class="stat-boost">+2</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Level 6: Feasting Conqueror -->
+        <div class="level-panel" data-level="6" id="level-6">
+            <div class="level-image-side">
+                <img src="images/konung_ultimate.jpg" alt="Feasting Conqueror" class="level-img">
+                <div class="level-img-overlay"></div>
+            </div>
+            <div class="level-info-side">
+                <div class="level-badge level-badge-max">
+                    <span class="level-number">6</span>
+                </div>
+                <h3 class="level-name">FEASTING CONQUEROR</h3>
+                <div class="level-type-tag max-tag">MAX LEVEL</div>
+                <div class="level-details">
+                    <div class="ability-card">
+                        <div class="ability-header">
+                            <span class="ability-type passive">PASSIVE</span>
+                            <span class="ability-name">Rune Storm</span>
+                        </div>
+                        <div class="ability-body">
+                            <p>You can now apply an unlimited amount of <strong>Frost Runes</strong> to the opponent.</p>
+                            <p class="ability-note">Maximum damage reduction from all active <strong>Runes</strong> on the opponent: <strong class="val">60%</strong>.</p>
+                        </div>
+                    </div>
+                    <div class="ability-card">
+                        <div class="ability-header">
+                            <span class="ability-type passive">PASSIVE</span>
+                            <span class="ability-name">Death Verdict</span>
+                        </div>
+                        <div class="ability-body">
+                            <p>When Rune Magic is activated at the end of the <strong>Konung's Verdict</strong>, an ice sword falls on the enemy from above, increasing damage by <strong class="val">300%</strong>.</p>
+                        </div>
+                    </div>
+                    <div class="ability-card">
+                        <div class="ability-header">
+                            <span class="ability-type ultimate">ACTIVE</span>
+                            <span class="ability-name">Ice Execution</span>
+                        </div>
+                        <div class="ability-body">
+                            <p>Hold the <strong>hand attack</strong> button to perform a combo of three moves. The second move of the combo <strong>freezes</strong> the opponent on a successful hit.</p>
+                            <p>The combo deals <strong class="val">120%</strong> weapon damage to the opponent and each attack in it has a <strong class="val">40%</strong> increased chance to summon an <strong>ice sword</strong>.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════ -->
+    <!-- SECTION: LEVEL STRENGTHS SUMMARY         -->
+    <!-- ═══════════════════════════════════════ -->
+    <section id="summary" class="section summary-section">
+        <div class="summary-bg"></div>
+        <div class="summary-wrapper">
+            <div class="section-label">AT A GLANCE</div>
+            <h2 class="section-title">Upgrade Strengths</h2>
+            <p class="summary-intro">Each level of the Celestial Konung set builds upon the last, transforming the warrior from a skilled raider into an unstoppable frozen monarch.</p>
+
+            <div class="summary-grid">
+                <div class="summary-card" data-level="1">
+                    <div class="summary-card-header">
+                        <span class="summary-level">1</span>
+                        <span class="summary-name">Skilled Raider</span>
+                    </div>
+                    <p class="summary-strength">Provides the raw foundation — a flat boost to weapon attack damage and defense, making every hit harder and every block sturdier before any abilities come into play.</p>
+                </div>
+
+                <div class="summary-card" data-level="2">
+                    <div class="summary-card-header">
+                        <span class="summary-level">2</span>
+                        <span class="summary-name">Celestial Ice</span>
+                    </div>
+                    <p class="summary-strength">The core of the entire set. Unlocks the ice energy system, all 4 ice moves (Polar Blizzard, Leopard Leap, Sharpest Ice, Konung's Challenge), the Ice Swords passive for constant Frost Rune pressure, Rune Magic for detonations, and Konung's Verdict — the devastating Snow Leopard finisher.</p>
+                </div>
+
+                <div class="summary-card" data-level="3">
+                    <div class="summary-card-header">
+                        <span class="summary-level">3</span>
+                        <span class="summary-name">Covered by Blizzard</span>
+                    </div>
+                    <p class="summary-strength">Amplifies your Blizzard uptime by increasing ice sword summon chance while inside it. Turns Polar Blizzard from a strong ability into a relentless barrage that stacks Frost Runes faster.</p>
+                </div>
+
+                <div class="summary-card" data-level="4">
+                    <div class="summary-card-header">
+                        <span class="summary-level">4</span>
+                        <span class="summary-name">Fearless Star Sailor</span>
+                    </div>
+                    <p class="summary-strength">A massive empowerment tier. Ice Mead extends every ice move by 5 seconds and enhances all of them — double Blizzard swords, faster Leopard Leap, stronger Sharpest Ice, and Konung's Challenge now creates Slicing Blizzards. Playing with Runes auto-triggers Leopard Leap every 4 Frost Runes, creating chain combos.</p>
+                </div>
+
+                <div class="summary-card" data-level="5">
+                    <div class="summary-card-header">
+                        <span class="summary-level">5</span>
+                        <span class="summary-name">Long Runes</span>
+                    </div>
+                    <p class="summary-strength">Extends Frost Rune duration by 2 seconds and adds 2 extra ice swords to Rune Magic. Longer rune uptime means more stacks, more damage reduction on the opponent, and more detonation damage when you trigger Rune Magic.</p>
+                </div>
+
+                <div class="summary-card" data-level="6">
+                    <div class="summary-card-header">
+                        <span class="summary-level summary-level-max">6</span>
+                        <span class="summary-name">Feasting Conqueror</span>
+                    </div>
+                    <p class="summary-strength">Removes the Frost Rune cap entirely — unlimited rune stacking with up to 60% damage reduction. Death Verdict makes the Konung's Verdict finisher deal 300% bonus damage when Rune Magic triggers at the end. Ice Execution adds a freezing combo that deals 120% weapon damage with massively increased ice sword summon chance.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════ -->
+    <!-- SECTION: RECOMMENDED PERKS               -->
+    <!-- ═══════════════════════════════════════ -->
+    <section id="perks" class="section perks-section">
+        <div class="perks-bg"></div>
+        <div class="perks-layout">
+            <div class="perks-image-panel">
+                <img src="images/konung_perks.jpg" alt="Celestial Konung with Snow Leopard" class="perks-img">
+                <div class="perks-img-overlay"></div>
+            </div>
+            <div class="perks-content-panel">
+                <div class="section-label">LOADOUT</div>
+                <h2 class="section-title">Recommended Perks</h2>
+                <p class="perks-intro">The Celestial Konung set heavily relies on <strong>shadow damage</strong>. Konung's Verdict, Rune Magic detonations, and Leopard Leap all deal shadow damage, making perks that amplify or synergize with shadow output essential. The following perk loadout maximizes the set's destructive potential.</p>
+
+                <!-- HELM PERKS -->
+                <div class="perk-category">
+                    <div class="perk-category-header">
+                        <div class="perk-category-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C6.48 2 2 6 2 10c0 2.5 1.5 4.5 3 6l1 6h12l1-6c1.5-1.5 3-3.5 3-6 0-4-4.48-8-10-8z"/></svg>
+                        </div>
+                        <span class="perk-category-title">Helm Perks</span>
+                    </div>
+
+                    <div class="perk-card">
+                        <div class="perk-card-header">
+                            <span class="perk-name">Shadow Blades</span>
+                            <span class="perk-rarity legendary">Legendary</span>
+                        </div>
+                        <div class="perk-card-body">
+                            <p>Your shadow abilities inflict <strong>Bleeding</strong> on the opponent, dealing continuous damage equal to a percentage of your shadow abilities' damage over time.</p>
+                            <p class="perk-synergy">Synergy: Since Konung's Verdict and Leopard Leap both deal shadow damage, Shadow Blades adds a bleed on top of every shadow hit — stacking sustained damage alongside your burst.</p>
+                        </div>
+                    </div>
+
+                    <div class="perk-card">
+                        <div class="perk-card-header">
+                            <span class="perk-name">Field Medicine</span>
+                            <span class="perk-rarity legendary">Legendary</span>
+                        </div>
+                        <div class="perk-card-body">
+                            <p>When you lose a certain amount of your maximum health, you have a chance to <strong>restore a percentage of your health</strong>. At higher levels, the activation threshold drops and the heal percentage increases.</p>
+                            <p class="perk-synergy">Synergy: Essential for survivability. Several weapon perks in this build cost health to activate, so Field Medicine offsets that self-damage and keeps the Konung in the fight longer.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ARMOR PERKS -->
+                <div class="perk-category">
+                    <div class="perk-category-header">
+                        <div class="perk-category-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L3 7v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-9-5z"/></svg>
+                        </div>
+                        <span class="perk-category-title">Armor Perks</span>
+                    </div>
+
+                    <div class="perk-card">
+                        <div class="perk-card-header">
+                            <span class="perk-name">Himmelstein's Power</span>
+                            <span class="perk-rarity legendary">Legendary</span>
+                        </div>
+                        <div class="perk-card-body">
+                            <p>Increases your <strong>critical hit damage</strong> with each successive critical hit you land. The bonus stacks the more crits you score, but comes at the cost of <strong>reduced defense</strong>.</p>
+                            <p class="perk-synergy">Synergy: The Konung's constant ice sword barrage gives you many opportunities to land critical hits. With Sharpest Ice active (40% damage boost + freeze chance), critical hits become devastating — Himmelstein's Power turns them into fight-ending bursts.</p>
+                        </div>
+                    </div>
+
+                    <div class="perk-card">
+                        <div class="perk-card-header">
+                            <span class="perk-name">Predator</span>
+                            <span class="perk-rarity legendary">Legendary</span>
+                        </div>
+                        <div class="perk-card-body">
+                            <p>Provides a significant <strong>damage boost</strong> against opponents whose health has dropped below a certain threshold. The lower the enemy's health, the more damage you deal.</p>
+                            <p class="perk-synergy">Synergy: Once the Konung's Frost Rune pressure and ice sword barrage wear the opponent down, Predator kicks in to close the fight. Pairs perfectly with Rune Magic detonation chains for a finishing blow.</p>
+                        </div>
+                    </div>
+
+                    <div class="perk-card">
+                        <div class="perk-card-header">
+                            <span class="perk-name">Price of Victory</span>
+                            <span class="perk-rarity legendary">Legendary</span>
+                        </div>
+                        <div class="perk-card-body">
+                            <p>When you lose health due to your equipment's set ability effects or other perks (such as Berserk), you have a <strong>50-80% chance</strong> to deal <strong>shadow damage</strong> to the opponent equal to <strong>80-165%</strong> of the health you lost.</p>
+                            <p class="perk-synergy">Synergy: A game-changer for this build. When Berserk or Shadow Berserk cost you health, Price of Victory converts that self-damage into devastating shadow damage dealt to the enemy — turning every risk into a reward.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- WEAPON PERKS -->
+                <div class="perk-category">
+                    <div class="perk-category-header">
+                        <div class="perk-category-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.5 2L18 6l-9 9-5 1 1-5 9-9z M16 8l-2-2"/><path d="M3 21h18"/></svg>
+                        </div>
+                        <span class="perk-category-title">Weapon Perks</span>
+                    </div>
+
+                    <div class="perk-card">
+                        <div class="perk-card-header">
+                            <span class="perk-name">Basher</span>
+                            <span class="perk-rarity legendary">Legendary</span>
+                        </div>
+                        <div class="perk-card-body">
+                            <p>Provides a chance to <strong>stun</strong> the opponent for approximately <strong>3 seconds</strong> upon landing a successful hit. The stun completely immobilizes the enemy.</p>
+                            <p class="perk-synergy">Synergy: A stunned opponent is a sitting target for the Konung's full combo — activate Sharpest Ice, chain into Ice Execution, or unleash Konung's Verdict while they cannot dodge or block.</p>
+                        </div>
+                    </div>
+
+                    <div class="perk-card">
+                        <div class="perk-card-header">
+                            <span class="perk-name">Berserk</span>
+                            <span class="perk-rarity legendary">Legendary</span>
+                        </div>
+                        <div class="perk-card-body">
+                            <p>Gives a chance to deal <strong>massively increased damage</strong> with a weapon hit, at the cost of losing a portion of your own health. The damage multiplier is significant enough to turn a single hit into a devastating blow.</p>
+                            <p class="perk-synergy">Synergy: The health cost is the point — Price of Victory converts your self-damage into shadow damage dealt to the enemy, and Field Medicine heals you back. Berserk becomes a pure damage multiplier with no real downside.</p>
+                        </div>
+                    </div>
+
+                    <div class="perk-card">
+                        <div class="perk-card-header">
+                            <span class="perk-name">Shadow Berserk</span>
+                            <span class="perk-rarity legendary">Legendary</span>
+                        </div>
+                        <div class="perk-card-body">
+                            <p>Provides a chance to deal <strong>bonus shadow damage</strong> during a shadow move, at the cost of a percentage of your health. Triggers on shadow abilities and shadow energy attacks.</p>
+                            <p class="perk-synergy">Synergy: Since the Konung set relies on shadow damage (Leopard Leap, Konung's Verdict, Rune Magic detonation), Shadow Berserk amplifies every single shadow hit. Combined with Price of Victory, the health cost becomes additional shadow damage dealt to the enemy.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════ -->
+    <!-- SECTION: FINAL ASCENSION                 -->
+    <!-- ═══════════════════════════════════════ -->
+    <section id="ultimate" class="section pinned-section">
+        <div class="ultimate-bg"></div>
+        <div class="ultimate-image-container">
+            <img src="images/konung_ultimate.jpg" alt="Celestial Konung Ascended" class="ultimate-img" id="ultimate-img">
+            <div class="ultimate-glow"></div>
+        </div>
+        <div class="ultimate-content">
+            <div class="ultimate-label">ASCENDED</div>
+            <h2 class="ultimate-title">THE FROZEN<br>MONARCH RISES</h2>
+            <p class="ultimate-desc">At maximum power, the Celestial Konung becomes an unstoppable avatar of winter itself. Infinite frost runes, devastating ice executions, and the eternal Snow Leopard companion make this set the pinnacle of Shadow Fight 3 mastery.</p>
+            <div class="ultimate-badge-container">
+                <div class="ultimate-badge">
+                    <div class="badge-icon">&#x2726;</div>
+                    <div class="badge-text">LEGENDARY SET</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer id="footer">
+        <div class="footer-content">
+            <div class="footer-rune">&#x2726;</div>
+            <p>Celestial Konung — Shadow Fight 3</p>
+            <p class="footer-sub">Fan-made showcase. All game content belongs to Nekki.</p>
+        </div>
+    </footer>
+
+    <!-- SCRIPTS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollToPlugin.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
