@@ -829,7 +829,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 
                 ctxR.shadowBlur = 0;
 
-                if (drops[i] * fontSize > runesCanvas.height && Math.random() > 0.95) {
+                // Let the runes fall completely off the bottom of the screen before resetting
+                if (drops[i] * fontSize > runesCanvas.height + 200 && Math.random() > 0.9) {
                     drops[i] = 0;
                 }
                 drops[i]++;
