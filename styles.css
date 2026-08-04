@@ -181,6 +181,21 @@ body {
     color: var(--text-primary);
     font-weight: 600;
 }
+.nav-credit {
+    font-family: 'Dancing Script', cursive;
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+    margin-left: 12px;
+    padding-left: 20px;
+    border-left: 1px solid rgba(255,255,255,0.1);
+    white-space: nowrap;
+}
+.heart {
+    font-size: 0.8rem;
+    display: inline-block;
+    transform: translateY(-1px);
+    opacity: 0.8;
+}
 
 .nav-progress {
     position: absolute;
@@ -1222,6 +1237,13 @@ body {
     letter-spacing: 0.15em;
     color: var(--text-secondary);
     margin-bottom: 8px;
+}
+.footer-credit {
+    font-family: 'Dancing Script', cursive !important;
+    font-size: 1.5rem !important;
+    color: var(--text-primary) !important;
+    letter-spacing: normal !important;
+    margin: 16px 0 !important;
 }
 .footer-sub {
     font-size: 0.7rem !important;
